@@ -27,20 +27,25 @@ app.use(
   }),
 );
 
-// Список усіх користувачів
-app.get('/users', (req, res) => {
-  res.status(200).json([{ id: 1, name: 'Alice' }]);
+// Маршрут
+app.get('/', (req, res) => {
+  res.status(200).json({ message: 'Hello, World!' });
 });
 
-app.post('/users', (req, res) => {
+// Список усіх нотаток
+app.get('/notes', (req, res) => {
+  res.status(200).json({ message: 'Retrieved all notes' });
+});
+
+app.post('/notes', (req, res) => {
   console.log(req.body); // тепер тіло доступне як JS-об’єкт
-  res.status(201).json({ message: 'User created' });
+  res.status(201).json({ message: 'Note created' });
 });
 
-// Конкретний користувач за id
-app.get('/users/:userId', (req, res) => {
-  const { userId } = req.params;
-  res.status(200).json({ id: userId, name: 'Jacob' });
+// Конкретна нотатка за id
+app.get('/notes/:noteId', (req, res) => {
+  const { id_param } = req.params.noteId;
+  res.status(200).json({ message: `Retrieved note with ID: ${id_param}` });
 });
 
 // Логування часу
@@ -49,15 +54,10 @@ app.use((req, res, next) => {
   next();
 });
 
-// Маршрут
-app.get('/', (req, res) => {
-  res.status(200).json({ message: 'Hello, World!' });
-});
-
 // Маршрут для тестування middleware помилки
 app.get('/test-error', (req, res) => {
   // Штучна помилка для прикладу
-  throw new Error('Something went wrong');
+  throw new Error('Simulated server error');
 });
 
 // Middleware 404 (після всіх маршрутів)
