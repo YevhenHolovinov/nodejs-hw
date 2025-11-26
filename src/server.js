@@ -1,4 +1,3 @@
-// src/server.js
 import express from 'express';
 import cors from 'cors';
 import pino from 'pino-http';
@@ -6,7 +5,6 @@ import 'dotenv/config';
 
 const app = express();
 const PORT = process.env.PORT ?? 3000;
-//const PORT = 3000;
 
 app.use(express.json());
 app.use(cors()); // Дозволяє запити з будь-яких джерел
@@ -36,15 +34,9 @@ app.get('/', (req, res) => {
 app.get('/notes', (req, res) => {
   res.status(200).json({ message: 'Retrieved all notes' });
 });
-
-app.post('/notes', (req, res) => {
-  console.log(req.body); // тепер тіло доступне як JS-об’єкт
-  res.status(201).json({ message: 'Note created' });
-});
-
 // Конкретна нотатка за id
 app.get('/notes/:noteId', (req, res) => {
-  const { id_param } = req.params.noteId;
+  const id_param = Number(req.params.noteId);
   res.status(200).json({ message: `Retrieved note with ID: ${id_param}` });
 });
 
