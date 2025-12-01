@@ -2,7 +2,7 @@ import { Note } from '../models/note.js';
 import createHttpError from 'http-errors';
 
 //Отримати список усіх нотаток.
-export const getNotes = async (req, res) => {
+export const getAllNotes = async (req, res) => {
   const notes = await Note.find();
   res.status(200).json(notes);
 };
@@ -32,6 +32,7 @@ export const deleteNote = async (req, res, next) => {
 
   if (!note) {
     next(createHttpError(404, 'Note not found'));
+    return;
   }
 
   res.status(200).json(note);
@@ -42,13 +43,14 @@ export const updateNote = async (req, res, next) => {
   const { noteId } = req.params;
 
   const note = await Note.findByIdAndUpdate(
-    { _id: noteId }, //шукаємо по id.
+    { noteId }, //шукаємо по id.
     req.body,
     { new: true }, //повертаємо оновлений документ.
   );
 
   if (!note) {
     next(createHttpError(404, 'Note not found'));
+    return;
   }
 
   res.status(200).json(note);
