@@ -43,7 +43,7 @@ export const updateNote = async (req, res, next) => {
   const { noteId } = req.params;
 
   const note = await Note.findOneAndUpdate(
-    { noteId }, //шукаємо по id.
+    { _id: noteId }, //шукаємо по id.
     req.body,
     { new: true }, //повертаємо оновлений документ.
   );
