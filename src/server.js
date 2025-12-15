@@ -8,7 +8,9 @@ import { logger } from './middleware/logger.js';
 import { notFoundHandler } from './middleware/notFoundHandler.js';
 import { errorHandler } from './middleware/errorHandler.js';
 
+import authRoutes from './routes/authRoutes.js';
 import notesRoutes from './routes/notesRoutes.js';
+import cookieParser from 'cookie-parser';
 
 const app = express();
 const PORT = process.env.PORT ?? 3000;
@@ -17,7 +19,10 @@ const PORT = process.env.PORT ?? 3000;
 app.use(logger); //1. Логер першим - бачить усі запити.
 app.use(express.json()); //2. Парсинг JSON-тіла.
 app.use(cors()); //3. Дозвіл на запит з інших доменів.
+app.use(cookieParser());
 
+//Router авторизвції
+app.use(authRoutes);
 //підключаємо групу маршрутів нотатокю
 app.use(notesRoutes);
 
