@@ -6,6 +6,7 @@ export const authenticate = async (req, res, next) => {
   // Перевіряємо наявність accessToken
   if (!req.cookies.accessToken) {
     next(createHttpError(401, 'Missing access token'));
+    return;
   }
 
   // Якщо access  токен існує, шукаємо сесію

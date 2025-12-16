@@ -10,7 +10,7 @@ export const registerUser = async (req, res, next) => {
   const existingUser = await User.findOne({ email });
 
   if (existingUser) {
-    return next(createHttpError(404, 'Email in use'));
+    return next(createHttpError(400, 'Email in use'));
   }
 
   // Хешуємо пароль
@@ -29,7 +29,7 @@ export const registerUser = async (req, res, next) => {
   setSessionCookies(res, newSession);
 
   // Відправляємо дані користувача (без пароля) у відповіді
-  res.status(201).json({ newUser });
+  res.status(201).json(newUser);
 };
 
 export const loginUser = async (req, res, next) => {
