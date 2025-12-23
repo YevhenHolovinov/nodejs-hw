@@ -121,7 +121,7 @@ export const requestResetEmail = async (req, res) => {
   // Якщо користувача нема — навмисно повертаємо ту саму "успішну"
   // відповідь без відправлення листа (anti user enumeration).
   if (!user) {
-    return res.status(201).json({
+    return res.status(200).json({
       message: 'If this email exists, a reset link has been sent',
     });
   }

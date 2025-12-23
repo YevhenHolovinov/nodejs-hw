@@ -2,7 +2,7 @@ import multer from 'multer';
 export const upload = multer({
   storage: multer.memoryStorage(),
   limits: {
-    fielSize: 2 * 1024 * 1024,
+    filelSize: 2 * 1024 * 1024,
   },
   fileFilter: (req, file, cb) => {
     const allowedTypes = [
